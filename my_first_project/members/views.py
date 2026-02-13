@@ -2,14 +2,16 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 from .models import Member
+from django.db.models import Q
 
 # Create your views here.
 def hello(request):
     template = loader.get_template('hello.html')
     return HttpResponse(template.render())
 
+all_members = Member.objects.all().values()
+
 def all_member(request):
-    all_members = Member.objects.all().values()
     template = loader.get_template('all_member.html')
     context = {
         'members': all_members,
@@ -31,6 +33,16 @@ def main(request):
 def testing(request):
     template = loader.get_template('template.html')
     context = {
-        'fruits': ["Apple", "Banana", "Cherry"],
+        'members': all_members,
+        'fruits': ['Banana', 'Orange', 'Mango', 'Kiwi'],
+    }
+    return HttpResponse(template.render(context, request))
+
+def testing2(request):
+    # firstNames = Member.objects.filter(Q(firstName__contains='i') | Q(id=2)).values()
+    firstNames = Member.objects.all().order_by('-firstName').values()
+    template = loader.get_template('template2.html')
+    context = {
+        'firstNames': firstNames,
     }
     return HttpResponse(template.render(context, request))

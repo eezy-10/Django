@@ -3,12 +3,29 @@
 
 <body>
 
-  {% for x in fruits %}
-  <h1>{{ x }}</h1>
-  {% endfor %}
+  <!-- {% for x in members reversed %}
+  <h1>{{ x.id }}</h1>
+  <p>
+    {{ x.firstName }} {{ x.lastName }}
+  </p>
+  {% empty %}
+  <p>No members found</p>
+  {% endfor %} -->
 
-  <p>In views.py you can see what the fruits variable looks like.</p>
+  <!-- <p>In views.py you can see what the members variable looks like.</p> -->
 
+  {% include "mymenu.html" with me="Irtaza" sponsor="Pak-AIMS"%}
+  <h1>This is the Django Template</h1>
+  <p>A first Server Side Render HTML Page</p>
+  <ul>
+    {% for x in fruits %}
+    <li>{{ forloop.counter }} {{ x }} {# Small comments #}</li>
+    {% endfor %}
+  </ul>
+  {% comment "this was the main comment" %}
+  <h1>Welcome Ladies and Gentlemen</h1>
+  {% endcomment %}
+  {% include "footer.html" %}
 </body>
 
 </html>
